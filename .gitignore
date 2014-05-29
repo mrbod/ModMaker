@@ -20,5 +20,7 @@ Debug/ModMaker.exe
 *.out
 *.app
 
-#LOGS
+#Stuff
 *.log
+*.sdf
+*.opensdf

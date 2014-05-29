@@ -28,7 +28,7 @@ string printWelcomeMessage()
 	return sChoise;
 }
 
-void printModNameQ(char* cModNameOut)
+void printModNameQuestion(char* cModNameOut)
 {
 	string sModnamequestion, sMakingmod;
 	sModnamequestion = "What should it be called? (max 30 Characters, no space)";
@@ -65,7 +65,7 @@ int main()
 	
 	if (sChoice == "makemod")
 	{
-		printModNameQ(cModName);
+		printModNameQuestion(cModName);
 		
 		casCurrentDir = ConvertCurrDir(cCurrentPath);
 
