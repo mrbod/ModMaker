@@ -24,3 +24,6 @@ Debug/ModMaker.exe
 *.log
 *.sdf
 *.opensdf
+
+Debug/
+ModMaker/Debug
