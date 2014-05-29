@@ -46,6 +46,16 @@ CStringA ConvertCurrDir(TCHAR* cPath)
 	return result;
 }
 
+void printFinishedMessage()
+{
+	cout << "Your mod was succesfully created!" << endl;
+}
+
+void printErrorMessage()
+{
+	cout << "Something went wrong while creating your mod" << endl;
+}
+
 int main()
 {
 	//Input selections
@@ -55,22 +65,31 @@ int main()
 	TCHAR cCurrentPath[FILENAME_MAX];
 	CStringA casCurrentDir;
 
+	//Get current dir into a TCHAR variable
 	if (getCurrentDirName(cCurrentPath) == 0)
 	{
 		//Something is dreadfully wrong i fear.
 		exit(0);
 	}
-	
+	//Convert TCHAR to CStringA
+	casCurrentDir = ConvertCurrDir(cCurrentPath);
+	//Print msg and ask/returns what the user wants to do
 	sChoice = printWelcomeMessage();
 	
 	if (sChoice == "makemod")
 	{
+		//If user wants to create a mod, ask the name of the mod
 		printModNameQuestion(cModName);
-		
-		casCurrentDir = ConvertCurrDir(cCurrentPath);
 
-		//Modbuilder instance
+		//Create modbuilder class and tell it to build the mod
 		modbuilder mbuilder = modbuilder::modbuilder(casCurrentDir, cModName);
-		mbuilder.buildMod();
+		if (mbuilder.buildMod() == 0)
+		{
+			printFinishedMessage();
+		}
+		else
+		{
+			printErrorMessage();
+		}
 	}
 }
