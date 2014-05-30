@@ -9,10 +9,19 @@
 using namespace std;
 
 
-DWORD getCurrentDirName(TCHAR* currentDir)
+int getCurrentDirName(char* currentDir)
 {
 	//Fill array with current dir
-	return GetCurrentDirectory(FILENAME_MAX, currentDir);
+	try
+	{
+		_getcwd(currentDir, FILENAME_MAX);
+		return 0;
+	}
+	catch (int e)
+	{
+		return -1;
+	}
+	
 }
 
 string printWelcomeMessage()
@@ -39,13 +48,6 @@ void printModNameQuestion(char* cModNameOut)
 	cout << sMakingmod << endl;
 }
 
-CStringA ConvertCurrDir(TCHAR* cPath)
-{
-	CString csCurrentDir = CString(cPath);
-	CStringA result = csCurrentDir;
-	return result;
-}
-
 void printFinishedMessage()
 {
 	cout << "Your mod was succesfully created!" << endl;
@@ -62,17 +64,14 @@ int main()
 	string sChoice;
 	char cModName[30];
 	//Current directory
-	TCHAR cCurrentPath[FILENAME_MAX];
-	CStringA casCurrentDir;
+	char cCurrentPath[FILENAME_MAX];
 
-	//Get current dir into a TCHAR variable
-	if (getCurrentDirName(cCurrentPath) == 0)
+	//Get current dir
+	if (getCurrentDirName(cCurrentPath) != 0)
 	{
 		//Something is dreadfully wrong i fear.
 		exit(0);
 	}
-	//Convert TCHAR to CStringA
-	casCurrentDir = ConvertCurrDir(cCurrentPath);
 	//Print msg and ask/returns what the user wants to do
 	sChoice = printWelcomeMessage();
 	
@@ -82,7 +81,7 @@ int main()
 		printModNameQuestion(cModName);
 
 		//Create modbuilder class and tell it to build the mod
-		modbuilder mbuilder = modbuilder::modbuilder(casCurrentDir, cModName);
+		modbuilder mbuilder = modbuilder::modbuilder(cCurrentPath, cModName);
 		if (mbuilder.buildMod() == 0)
 		{
 			printFinishedMessage();

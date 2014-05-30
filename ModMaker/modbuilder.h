@@ -6,25 +6,28 @@ using namespace std;
 
 class modbuilder
 {
-	CStringA name;
-	CStringA path;
+	char name[30];
+	char path[FILENAME_MAX];
+	char fullname[FILENAME_MAX];
 	//level 1 folders
-	CStringA maps = "\\maps";
-	CStringA materials = "\\materials";
-	CStringA resource = "\\resource";
-	CStringA scripts = "\\scripts";
+	char* maps = "\\maps";
+	char* materials = "\\materials";
+	char* resource = "\\resource";
+	char* scripts = "\\scripts";
 	//level 2 folders
-	CStringA overviews = "\\overviews";
-	CStringA flash3 = "\\flash3";
-	CStringA npc = "\\npc";
-	CStringA shops = "\\shops";
-	CStringA vscripts = "\\vscripts";
+	char* overviews = "\\overviews";
+	char* flash3 = "\\flash3";
+	char* npc = "\\npc";
+	char* shops = "\\shops";
+	char* vscripts = "\\vscripts";
 
 
 
 	public:
-		modbuilder(CStringA modPath, CStringA modName);
+		modbuilder(char* modPath, char* modName);
 		int buildMod();
 		int makeFirstLevelFolders();
 		int makeSecondLevelFolders();
+		void makeDirFirst(char* inDir);
+		void makeDirSecond(char* inDir, char* inDirSec);
 };

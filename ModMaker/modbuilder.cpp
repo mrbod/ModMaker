@@ -2,19 +2,43 @@
 #include <direct.h>
 #define MakeDir _mkdir
 
-modbuilder::modbuilder(CStringA modPath, CStringA modName) {
-	path = modPath + "\\";
-	name = modName;
+modbuilder::modbuilder(char* modPath, char* modName) {
+	strcpy(path, modPath);
+	strcat(path, "\\");
+	strcpy(name, modName);
 }
+
+
+void modbuilder::makeDirFirst(char* inDir)
+{
+	char result[FILENAME_MAX];
+
+	strcpy(result, path);
+	strcat(result, name);
+	strcat(result, inDir);
+
+	MakeDir(result);
+}
+void modbuilder::makeDirSecond(char* inDir, char* inDirSec)
+{
+	char result[FILENAME_MAX];
+	strcpy(result, path);
+	strcat(result, name);
+	strcat(result, inDir);
+	strcat(result, inDirSec);
+
+	MakeDir(result);
+}
+
 
 int modbuilder::makeFirstLevelFolders()
 {
 	try
 	{
-		MakeDir(path + name + maps);
-		MakeDir(path + name + materials);
-		MakeDir(path + name + resource);
-		MakeDir(path + name + scripts);
+		modbuilder::makeDirFirst(maps);
+		modbuilder::makeDirFirst(materials);
+		modbuilder::makeDirFirst(resource);
+		modbuilder::makeDirFirst(scripts);
 		return 0;
 	}
 	catch (int e)
@@ -27,12 +51,12 @@ int modbuilder::makeSecondLevelFolders()
 {
 	try
 	{
-		MakeDir(path + name + materials + overviews);
-		MakeDir(path + name + resource + overviews);
-		MakeDir(path + name + resource + flash3);
-		MakeDir(path + name + scripts + npc);
-		MakeDir(path + name + scripts + shops);
-		MakeDir(path + name + scripts + vscripts);
+		modbuilder::makeDirSecond(materials, overviews);
+		modbuilder::makeDirSecond(resource, overviews);
+		modbuilder::makeDirSecond(resource, flash3);
+		modbuilder::makeDirSecond(scripts, npc);
+		modbuilder::makeDirSecond(scripts, shops);
+		modbuilder::makeDirSecond(scripts, vscripts);
 		return 0;
 	}
 	catch (int e)
@@ -45,7 +69,10 @@ int modbuilder::buildMod()
 {
 	//Make all directories and files needed for a bare repo
 	//Create mod folder
-	MakeDir(path + name);
+	char modDir[FILENAME_MAX];
+	strcpy(modDir, path);
+	strcat(modDir, name);
+	MakeDir(modDir);
 
 	if (makeFirstLevelFolders() != 0)
 	{
