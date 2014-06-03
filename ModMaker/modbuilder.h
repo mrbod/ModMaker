@@ -30,8 +30,6 @@ class modbuilder
 		int makeSecondLevelFolders();
 		void makeDirFirst(char* inDir);
 		void makeDirSecond(char* inDir, char* inDirSec);
-		void createFileFirst(char* inDir, char* fileName);
-		void createFileSecond(char* inDir, char* inDirSec, char* fileName);
 		void getPathFirst(char* inBuff, char* indDir);
 		void getBasePath(char* inBuff);
 		int copyFiles();

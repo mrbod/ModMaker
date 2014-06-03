@@ -70,7 +70,7 @@ int main()
 	if (getCurrentDirName(cCurrentPath) != 0)
 	{
 		//Something is dreadfully wrong i fear.
-		exit(0);
+		exit(-1);
 	}
 	//Print msg and ask/returns what the user wants to do
 	sChoice = printWelcomeMessage();

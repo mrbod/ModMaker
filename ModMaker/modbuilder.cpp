@@ -82,10 +82,10 @@ int modbuilder::makeFirstLevelFolders()
 {
 	try
 	{
-		modbuilder::makeDirFirst(maps);
-		modbuilder::makeDirFirst(materials);
-		modbuilder::makeDirFirst(resource);
-		modbuilder::makeDirFirst(scripts);
+		makeDirFirst(maps);
+		makeDirFirst(materials);
+		makeDirFirst(resource);
+		makeDirFirst(scripts);
 		return 0;
 	}
 	catch (int e)
@@ -98,12 +98,12 @@ int modbuilder::makeSecondLevelFolders()
 {
 	try
 	{
-		modbuilder::makeDirSecond(materials, overviews);
-		modbuilder::makeDirSecond(resource, overviews);
-		modbuilder::makeDirSecond(resource, flash3);
-		modbuilder::makeDirSecond(scripts, npc);
-		modbuilder::makeDirSecond(scripts, shops);
-		modbuilder::makeDirSecond(scripts, vscripts);
+		makeDirSecond(materials, overviews);
+		makeDirSecond(resource, overviews);
+		makeDirSecond(resource, flash3);
+		makeDirSecond(scripts, npc);
+		makeDirSecond(scripts, shops);
+		makeDirSecond(scripts, vscripts);
 		return 0;
 	}
 	catch (int e)
