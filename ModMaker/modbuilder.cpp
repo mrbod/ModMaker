@@ -47,27 +47,57 @@ void modbuilder::getBasePath(char* inBuff)
 	strcat(inBuff, name);
 }
 
-int modbuilder::copyFiles()
+void modbuilder::createAddonInfo()
+{
+	char file_path[FILENAME_MAX];
+
+	getBasePath(file_path);
+	strcat(file_path, "\\addoninfo.txt");
+	ofstream  dst(file_path, std::ios::binary);
+	dst << "//This file is mostly used for giving tooltip texts to your custom items, spells, etc." << endl;
+	dst << "lang" << endl;
+	dst << "{" << endl;
+	dst << "\t\"Language\"\t\t\"English\"" << endl;
+	dst << "\t\"Tokens\"" << endl;
+	dst << "\t{" << endl;
+	dst << "" << endl;
+	dst << "\t}" << endl;
+	dst << "}" << endl;
+	dst.close();
+}
+
+void modbuilder::createAddonEnglish()
+{
+	char file_path[FILENAME_MAX];
+
+	getPathFirst(file_path, resource);
+	strcat(file_path, "\\addon_english.txt");
+	ofstream  dst(file_path, std::ios::binary);
+	
+	dst << "// The addoninfo.txt file is a metadata file that is required by all Source Engine Add-ons." << endl;
+	dst << "\"AddonInfo\"" << endl;
+	dst << "{" << endl;
+	dst << "\taddonSteamAppID\t\t816" << endl;
+	dst << "\taddontitle\t\t\"My Addon\"" << endl;
+	dst << "\taddonversion\t\t0.001" << endl;
+	dst << "\taddontagline\t\t\"Tagline for My Addon\"" << endl;
+	dst << "\taddonauthor\t\t\"My Nick\"" << endl;
+	dst << "\taddonSteamGroupName\t\t\"Steamgroup name for My Addon\"" << endl;
+	dst << "\taddonauthorSteamID\t\t\"\"" << endl;
+	dst << "\taddonContent_Campaign\t\t0" << endl;
+	dst << "\taddonURL0\t\t\"\"" << endl;
+	dst << "\taddonSteamGroupName\t\t\"Description of my addon, its a lot of fun and you will not be able to stop playing it.\"" << endl;
+	dst << "}" << endl;
+	dst.close();
+}
+
+int modbuilder::createFiles()
 {
 	try
 	{
-		char file_path[FILENAME_MAX];
-
-		getBasePath(file_path);
-		strcat(file_path, "\\addoninfo.txt");
-		ifstream  src("data\\addoninfo.txt", std::ios::binary);
-		ofstream  dst(file_path, std::ios::binary);
-		dst << src.rdbuf();
-		src.close();
-		dst.close();
-
-		getPathFirst(file_path, resource);
-		strcat(file_path, "\\addon_english.txt");
-		src = ifstream("data\\addon_english.txt", std::ios::binary);
-		dst = ofstream(file_path, std::ios::binary);
-		dst << src.rdbuf();
-		src.close();
-		dst.close();
+		
+		createAddonInfo();
+		createAddonEnglish();
 
 		return 0;
 	}
@@ -129,7 +159,7 @@ int modbuilder::buildMod()
 	{
 		return -1;
 	}
-	if (copyFiles() != 0)
+	if (createFiles() != 0)
 	{
 		return -1;
 	}

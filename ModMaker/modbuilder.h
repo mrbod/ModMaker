@@ -32,6 +32,8 @@ class modbuilder
 		void makeDirSecond(char* inDir, char* inDirSec);
 		void getPathFirst(char* inBuff, char* indDir);
 		void getBasePath(char* inBuff);
-		int copyFiles();
+		void createAddonInfo();
+		void createAddonEnglish();
+		int createFiles();
 
 };
