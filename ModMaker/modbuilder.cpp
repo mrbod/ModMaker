@@ -69,24 +69,42 @@ void modbuilder::createAddonInfo()
 void modbuilder::createAddonEnglish()
 {
 	char file_path[FILENAME_MAX];
+	char addon_title[100];
+	char addon_tag[100];
+	char addon_steam[100];
 
 	getPathFirst(file_path, resource);
 	strcat(file_path, "\\addon_english.txt");
 	ofstream  dst(file_path, std::ios::binary);
+
+	strcpy(addon_title, "\taddontitle\t\t");
+	strcat(addon_title, "\"");
+	strcat(addon_title, name);
+	strcat(addon_title, "\"");
+
+	strcpy(addon_tag, "\taddontagline\t\t");
+	strcat(addon_tag, "\"Tagline for ");
+	strcat(addon_tag, name);
+	strcat(addon_tag, "\"");
+
+	strcpy(addon_steam, "\taddonSteamGroupName\t\t");
+	strcat(addon_steam, "\"");
+	strcat(addon_steam, name);
+	strcat(addon_steam, "\"");
 	
 	dst << "// The addoninfo.txt file is a metadata file that is required by all Source Engine Add-ons." << endl;
 	dst << "\"AddonInfo\"" << endl;
 	dst << "{" << endl;
 	dst << "\taddonSteamAppID\t\t816" << endl;
-	dst << "\taddontitle\t\t\"My Addon\"" << endl;
+	dst << addon_title << endl;
 	dst << "\taddonversion\t\t0.001" << endl;
-	dst << "\taddontagline\t\t\"Tagline for My Addon\"" << endl;
+	dst << addon_tag << endl;
 	dst << "\taddonauthor\t\t\"My Nick\"" << endl;
-	dst << "\taddonSteamGroupName\t\t\"Steamgroup name for My Addon\"" << endl;
+	dst << addon_steam << endl;
 	dst << "\taddonauthorSteamID\t\t\"\"" << endl;
 	dst << "\taddonContent_Campaign\t\t0" << endl;
 	dst << "\taddonURL0\t\t\"\"" << endl;
-	dst << "\taddonSteamGroupName\t\t\"Description of my addon, its a lot of fun and you will not be able to stop playing it.\"" << endl;
+	dst << "\taddonSteamGroupName\t\t\"Description of the addon, its a lot of fun and you will not be able to stop playing it.\"" << endl;
 	dst << "}" << endl;
 	dst.close();
 }
