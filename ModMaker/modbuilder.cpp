@@ -50,31 +50,12 @@ void modbuilder::getBasePath(char* inBuff)
 void modbuilder::createAddonInfo()
 {
 	char file_path[FILENAME_MAX];
-
-	getBasePath(file_path);
-	strcat(file_path, "\\addoninfo.txt");
-	ofstream  dst(file_path, std::ios::binary);
-	dst << "//This file is mostly used for giving tooltip texts to your custom items, spells, etc." << endl;
-	dst << "lang" << endl;
-	dst << "{" << endl;
-	dst << "\t\"Language\"\t\t\"English\"" << endl;
-	dst << "\t\"Tokens\"" << endl;
-	dst << "\t{" << endl;
-	dst << "" << endl;
-	dst << "\t}" << endl;
-	dst << "}" << endl;
-	dst.close();
-}
-
-void modbuilder::createAddonEnglish()
-{
-	char file_path[FILENAME_MAX];
 	char addon_title[100];
 	char addon_tag[100];
 	char addon_steam[100];
 
-	getPathFirst(file_path, resource);
-	strcat(file_path, "\\addon_english.txt");
+	getBasePath(file_path);
+	strcat(file_path, "\\addoninfo.txt");
 	ofstream  dst(file_path, std::ios::binary);
 
 	strcpy(addon_title, "\taddontitle\t\t");
@@ -91,7 +72,7 @@ void modbuilder::createAddonEnglish()
 	strcat(addon_steam, "\"");
 	strcat(addon_steam, name);
 	strcat(addon_steam, "\"");
-	
+
 	dst << "// The addoninfo.txt file is a metadata file that is required by all Source Engine Add-ons." << endl;
 	dst << "\"AddonInfo\"" << endl;
 	dst << "{" << endl;
@@ -107,6 +88,26 @@ void modbuilder::createAddonEnglish()
 	dst << "\taddonSteamGroupName\t\t\"Description of the addon, its a lot of fun and you will not be able to stop playing it.\"" << endl;
 	dst << "}" << endl;
 	dst.close();
+}
+
+void modbuilder::createAddonEnglish()
+{
+	char file_path[FILENAME_MAX];
+
+	getPathFirst(file_path, resource);
+	strcat(file_path, "\\addon_english.txt");
+	ofstream  dst(file_path, std::ios::binary);
+
+	dst << "//This file is mostly used for giving tooltip texts to your custom items, spells, etc." << endl;
+	dst << "lang" << endl;
+	dst << "{" << endl;
+	dst << "\t\"Language\"\t\t\"English\"" << endl;
+	dst << "\t\"Tokens\"" << endl;
+	dst << "\t{" << endl;
+	dst << "" << endl;
+	dst << "\t}" << endl;
+	dst << "}" << endl;
+	dst.close();	
 }
 
 int modbuilder::createFiles()
