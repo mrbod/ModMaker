@@ -1,11 +1,17 @@
-#include "modbuilder.h"
-#include <direct.h>
 #include <iostream>
 #include <fstream>
+#include <string.h>
+#if defined(_MSC_VER)
+#include <direct.h>
 #define MakeDir _mkdir
+#else
+#include <sys/stat.h>
+#define MakeDir(x) mkdir(x, 0777)
+#endif
+
+#include "modbuilder.h"
 
 modbuilder::modbuilder(char* modPath, char* modName)
-:
 {
 	strcpy(path, modPath);
 	strcat(path, "\\");
