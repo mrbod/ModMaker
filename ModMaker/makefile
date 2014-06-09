@@ -6,6 +6,7 @@ OBJS = mm.o
 OBJS += modbuilder.o
 
 all: $(APPNAME)
+	@echo Excellent
 
 $(APPNAME): $(OBJS)
 	$(CXX) -o $@ $^
