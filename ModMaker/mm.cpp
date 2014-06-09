@@ -1,8 +1,16 @@
 #include <iostream>
 #include <string>
-#include <direct.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#if defined(_MSC_VER)
 #include <afx.h>
+#include <direct.h>
+#define getcwd _getcwd
+#else
+#include <unistd.h>
+#endif
+
 #include "modbuilder.h"
 
 
@@ -14,7 +22,7 @@ int getCurrentDirName(char* currentDir)
 	//Fill array with current dir
 	try
 	{
-		_getcwd(currentDir, FILENAME_MAX);
+		getcwd(currentDir, FILENAME_MAX);
 		return 0;
 	}
 	catch (int e)
@@ -81,7 +89,7 @@ int main()
 		printModNameQuestion(cModName);
 
 		//Create modbuilder class and tell it to build the mod
-		modbuilder mbuilder = modbuilder::modbuilder(cCurrentPath, cModName);
+		modbuilder mbuilder(cCurrentPath, cModName);
 		if (mbuilder.buildMod() == 0)
 		{
 			printFinishedMessage();

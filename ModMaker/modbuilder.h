@@ -1,6 +1,8 @@
 #include <string>
 #include <stdio.h>
+#if defined(_MSC_VER)
 #include <afx.h>
+#endif
 
 using namespace std;
 
@@ -10,6 +12,7 @@ class modbuilder
 	char path[FILENAME_MAX];
 	char fullname[FILENAME_MAX];
 	//level 1 folders
+        // This is suspicious...
 	char* maps = "\\maps";
 	char* materials = "\\materials";
 	char* resource = "\\resource";

@@ -4,7 +4,9 @@
 #include <fstream>
 #define MakeDir _mkdir
 
-modbuilder::modbuilder(char* modPath, char* modName) {
+modbuilder::modbuilder(char* modPath, char* modName)
+:
+{
 	strcpy(path, modPath);
 	strcat(path, "\\");
 	strcpy(name, modName);
